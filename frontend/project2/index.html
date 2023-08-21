@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <form action="/" method="get">
+           <h1 id="heading">Your Account</h1>
+           <hr>
+           <section id="top">
+            <div class="remark">
+                <div>Basic</div>
+                <p>Having an up-to-date email address attached to your account is a great step towards improving your account security</p>
+            </div>
+            <div id="top-form">
+                <label for="email">Email</label>
+                <input type="email" >
+                <br>
+                <label for="password">Password</label>
+                <input type="password">
+                <label for="country">Country</label>
+                <select id="country" name="country">
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                    <option value="EU">EU</option>
+                  </select>
+                <label for="language">Language</label>
+                <select id="Language" name="language">
+                    <option value="Hindi">Hindi</option>
+                    <option value="English">English</option>
+                    <option value="French">French</option>
+                    <option value="Mandarine">Mandarine</option>
+                  </select>
+
+            </div>
+           </section>
+           <hr>
+           <section id="top">
+            <div class="remark">
+                <div>Profile</div>
+                <p>This informantion will be shown publically so
+                    be careful what information you provide
+                </p>
+            </div>
+            <div id="top-form">
+                <div class="name-container">
+                    <div class="name">
+
+                        <label for="fname">First Name</label>
+                        <input type="text" name="fname" >
+                    </div>
+                    <div class="name">
+                        <label for="lname">Last Name</label>
+                        <input type="text" name="lname" >
+    
+                    </div>
+                </div>
+                <br>
+                <label for="picture">Picture</label>
+                <input id="picture" type="file" >
+                <label for="username">Username</label>
+                <input type="text" id="username">
+                <label for="aboutyou">About you</label>
+                <textarea name="" id="aboutyou" ></textarea>
+
+            </div>
+           
+           </section>
+          
+           <section id="bill">
+            <div class="remark">
+                <div>Billing</div>
+                <p>This informantion will be shown publically so
+                    be careful what information you provide
+                </p>
+            </div>
+            <div id="top-form">
+                <label for="">Change Plan</label>
+                <div id="plan-container">
+                    <div class="plan-types" >
+                        <h6>BASIC</h6>
+                        <p><b>1GB</b> uploads</p>
+                        <footer><b>$5</b>/mo</footer>
+                    </div>
+                    <div class="plan-types" >
+                        <h6>ESSENTIAL</h6>
+                        <p><b>5GB</b> uploads</p>
+                        <footer><b>$10</b>/mo</footer>
+                    </div>
+                    <div class="plan-types" >
+                        <h6>PRO</h6>
+                        <p><b>15GB</b> uploads</p>
+                        <footer><b>$20</b>/mo</footer>
+                    </div>
+                </div>
+                <br>
+                <label for="picture">Picture</label>
+                <input id="picture" type="file" >
+                <label for="username">Username</label>
+                <input type="text" id="username">
+                <label for="aboutyou">About you</label>
+                <textarea name="" id="aboutyou" ></textarea>
+
+            </div>
+           
+           </section>
+          
+
+        </form>
+    </div>
+</body>
+</html>

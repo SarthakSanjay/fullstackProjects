@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do </title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-purple-400 dark:bg-purple-900">
+    <div id="container" class="h-screen">
+        <h1 id="app-name" class="text-center font-bold text-3xl text-gray-900 dark:text-gray-200 ">To Do Application</h1>
+        <!-- <button id="dark-mode">Dark</button> -->
+        <div id="app" class="flex flex-col h-full  justify-evenly items-center">
+            <div id="enter-task" class=" w-full flex justify-evenly ">
+                <input type="text" id="task" class="h-10 rounded-2xl w-6/12 px-5 outline-none border-purple-800 border-2">
+                <input type="button" id="btn" value="Add" class="px-2 h-full mx-10 w-20 rounded-2xl bg-blue-400 border-2 border-black" >
+            </div>
+            <div id="show-task" class="h-3/4  w-3/4">
+
+            </div>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
