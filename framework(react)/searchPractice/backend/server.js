@@ -1,0 +1,33 @@
+import 'dotenv/config'
+import express from 'express'
+import { connectDB } from './db/connect.js'
+import { createProduct, deleteProduct, getAllproduct } from './controllers/product.js'
+const app = express()
+const PORT = process.env.PORT || 8000
+
+app.use(express.json())
+
+app.get('/',(req,res)=>{
+    res.send("<h1>hello</h1>")
+})
+
+app.post('/product/new' , createProduct )
+app.get('/product/all',getAllproduct)
+app.delete('/product/delete/:id',deleteProduct)
+const startServer = async() =>{
+    try {
+       await connectDB()
+       .then(()=>{
+            console.log("connected to database")
+        })
+        .then(()=>{
+            app.listen(PORT ,()=>{
+                console.log(`app started on port ${PORT}`)
+            })
+        })
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+startServer()
