@@ -2,6 +2,7 @@ import 'dotenv/config'
 import express from 'express'
 import { connectDB } from './db/connect.js'
 import { createProduct, deleteProduct, getAllproduct } from './controllers/product.js'
+import { search } from './controllers/search.js'
 const app = express()
 const PORT = process.env.PORT || 8000
 
@@ -14,6 +15,10 @@ app.get('/',(req,res)=>{
 app.post('/product/new' , createProduct )
 app.get('/product/all',getAllproduct)
 app.delete('/product/delete/:id',deleteProduct)
+
+app.get('/product/search' , search)
+
+
 const startServer = async() =>{
     try {
        await connectDB()
