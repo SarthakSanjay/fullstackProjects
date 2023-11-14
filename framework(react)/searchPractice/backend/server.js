@@ -3,9 +3,11 @@ import express from 'express'
 import { connectDB } from './db/connect.js'
 import { createProduct, deleteProduct, getAllproduct } from './controllers/product.js'
 import { search } from './controllers/search.js'
+import cors from 'cors'
 const app = express()
 const PORT = process.env.PORT || 8000
 
+app.use(cors())
 app.use(express.json())
 
 app.get('/',(req,res)=>{
