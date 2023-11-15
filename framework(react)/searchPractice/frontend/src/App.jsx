@@ -5,6 +5,7 @@ import './App.css'
 function App() {
   const [input , setInput] = useState('')
   const [product , setProduct] = useState([])
+  const [isChecked , setChecked] = useState(false)
   const handleChange = (e) =>{
     e.preventDefault()
     setInput(e.target.value)
@@ -25,6 +26,7 @@ function App() {
   }
 
   const handleClick =async(e) =>{
+    setChecked(!isChecked)
     e.preventDefault()
     await fetch(` http://localhost:3000/product/search?search=${e.target.value}`)
     .then(res => res.json())
@@ -39,15 +41,17 @@ function App() {
     <>
     <div>
       <label>Red</label>
-      <input type='checkbox' value="red"  onChange={handleClick} />
+      <input type='checkbox' value="red" checked={isChecked}  onChange={handleClick} />
+      <label>White</label>
+      <input type='checkbox' value="white" checked={isChecked}  onChange={handleClick} />
     </div>
         <form onSubmit={handleSubmit}>
-          <input type='text' onChange={handleChange} />
+          <input type='text' onChange={handleChange} /> 
           <button type="submit">Search</button>
         </form>
 
         {
-          product ? product.map(item =>{
+          product && isChecked ? product.map(item =>{
             return <ul style={{listStyle:'none'}} key={item._id}>
             <li>Name: {item.name}</li>
             <li>Category: {item.category}</li>
