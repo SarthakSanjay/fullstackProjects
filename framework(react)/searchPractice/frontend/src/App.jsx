@@ -44,6 +44,8 @@ function App() {
       <input type='checkbox' value="red" checked={isChecked}  onChange={handleClick} />
       <label>White</label>
       <input type='checkbox' value="white" checked={isChecked}  onChange={handleClick} />
+      <label>Black</label>
+      <input type='checkbox' value="black" checked={isChecked}  onChange={handleClick} />
     </div>
         <form onSubmit={handleSubmit}>
           <input type='text' onChange={handleChange} /> 
