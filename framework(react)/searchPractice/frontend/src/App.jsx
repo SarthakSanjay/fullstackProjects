@@ -52,7 +52,7 @@ function App() {
 
         {
           product && isChecked ? product.map(item =>{
-            return <ul style={{listStyle:'none'}} key={item._id}>
+            return <ul style={{listStyle:'none', textAlign:'start'}} key={item._id}>
             <li>Name: {item.name}</li>
             <li>Category: {item.category}</li>
             <li>Color: {item.color}</li>
