@@ -2,7 +2,7 @@ import 'dotenv/config'
 import express from 'express'
 import { connectDB } from './db/connect.js'
 import { createProduct, deleteProduct, getAllproduct } from './controllers/product.js'
-import { search } from './controllers/search.js'
+import { filterProductsByColor, search } from './controllers/search.js'
 import cors from 'cors'
 const app = express()
 const PORT = process.env.PORT || 8000
@@ -19,6 +19,7 @@ app.get('/product/all',getAllproduct)
 app.delete('/product/delete/:id',deleteProduct)
 
 app.get('/product/search' , search)
+app.get('/product/filter',filterProductsByColor)
 
 
 const startServer = async() =>{
