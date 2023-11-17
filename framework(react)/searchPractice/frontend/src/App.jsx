@@ -5,9 +5,14 @@ import './App.css'
 function App() {
   const [input , setInput] = useState('')
   const [product , setProduct] = useState([])
-  const [isChecked , setChecked] = useState(false)
+  const [checkedStatus, setCheckedStatus] = useState({
+    red: false,
+    white: false,
+    black: false,
+  });
+  const [colorArray , setColorArray] = useState([])
   const handleChange = (e) =>{
-    e.preventDefault()
+    // e.preventDefault()
     setInput(e.target.value)
     console.log(e.target.value)
 
@@ -24,11 +29,19 @@ function App() {
 
     console.log(input)
   }
-
+ 
   const handleClick =async(e) =>{
-    setChecked(!isChecked)
-    e.preventDefault()
-    await fetch(` http://localhost:3000/product/search?search=${e.target.value}`)
+    const color = e.target.value;
+   
+    setColorArray(prevColorArray => [...prevColorArray, color]); 
+   
+    
+    setCheckedStatus({
+      ...checkedStatus,
+      [color]: !checkedStatus[color],
+    });
+    // e.preventDefault()
+    await fetch(` http://localhost:3000/product/filter?colors=${colorArray.toString()}`)
     .then(res => res.json())
     .then(res => {
       setProduct(res.product)
@@ -36,16 +49,21 @@ function App() {
      return res.product
     })
   }
+  console.log(colorArray.toString())
 
+  const listStyle = {
+    cursor: "pointer"
+  }
   return (
     <>
     <div>
       <label>Red</label>
-      <input type='checkbox' value="red" checked={isChecked}  onChange={handleClick} />
+      <input style={listStyle} type='checkbox' checked={checkedStatus.red} value="red"   onChange={handleClick} />
       <label>White</label>
-      <input type='checkbox' value="white" checked={isChecked}  onChange={handleClick} />
+      <input style={listStyle} type='checkbox' value="white" checked={checkedStatus.white}  onChange={handleClick} />
       <label>Black</label>
-      <input type='checkbox' value="black" checked={isChecked}  onChange={handleClick} />
+      <input style={listStyle} type='checkbox' value="black" checked={checkedStatus.black}  onChange={handleClick} />
+
     </div>
         <form onSubmit={handleSubmit}>
           <input type='text' onChange={handleChange} /> 
@@ -53,7 +71,7 @@ function App() {
         </form>
 
         {
-          product && isChecked ? product.map(item =>{
+          product  ? product.map(item =>{
             return <ul style={{listStyle:'none', textAlign:'start'}} key={item._id}>
             <li>Name: {item.name}</li>
             <li>Category: {item.category}</li>
