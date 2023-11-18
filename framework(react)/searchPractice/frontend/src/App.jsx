@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './App.css'
 
@@ -23,17 +23,41 @@ function App() {
     .then(res => res.json())
     .then(res => {
       setProduct(res.product)
-      console.log(res.product[0].name)
+      // console.log(res.product[0].name)
      return res.product
     })
 
     console.log(input)
   }
- 
+  
   const handleClick =async(e) =>{
+    // let arr = []
     const color = e.target.value;
-   
-    setColorArray(prevColorArray => [...prevColorArray, color]); 
+
+
+    
+    if(colorArray.includes(color)){
+     let updatedArray = colorArray.filter((item) => item !== color)
+    setColorArray(updatedArray)
+    console.log(updatedArray);
+    }else{
+      colorArray.push(color)
+      
+    }
+    // console.log(colorArray);
+  
+    // setColorArray(prevColorArray => [...prevColorArray, color]); 
+    // console.log(colorArray);
+  //  await setColorArray(prevColorArray => [...prevColorArray, color]); 
+    
+    await fetch(` http://localhost:3000/product/filter?colors=${colorArray.toString()}`)
+    .then(res => res.json())
+    .then(res => {
+     
+      setProduct(res.product)
+      // console.log(res.product[0].name)
+     return res.product
+    })
    
     
     setCheckedStatus({
@@ -41,15 +65,7 @@ function App() {
       [color]: !checkedStatus[color],
     });
     // e.preventDefault()
-    await fetch(` http://localhost:3000/product/filter?colors=${colorArray.toString()}`)
-    .then(res => res.json())
-    .then(res => {
-      setProduct(res.product)
-      console.log(res.product[0].name)
-     return res.product
-    })
   }
-  console.log(colorArray.toString())
 
   const listStyle = {
     cursor: "pointer"
