@@ -36,7 +36,7 @@ export const filterProductsByColor = async (req, res) => {
       if (colors && colors.length > 0) {
         // Split colors received as comma-separated string into an array
         const selectedColors = colors.split(',');
-  
+        console.log(selectedColors)
         // Find products that match the selected colors
         products = await productModel.find({ color: { $in: selectedColors } });
       } else {
@@ -44,7 +44,7 @@ export const filterProductsByColor = async (req, res) => {
         products = await productModel.find();
       }
   
-      res.json({ product: products });
+      res.json({total:products.length, product: products });
     } catch (error) {
       res.status(500).json({ message: 'Failed to fetch products', error: error.message });
     }
