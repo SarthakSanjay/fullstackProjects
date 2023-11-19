@@ -10,9 +10,25 @@ function App() {
     white: false,
     black: false,
   });
-  const [colorArray , setColorArray] = useState([])
+  const [colorArray , setColorArray] = useState([...new Set(product.map(item => item.color))])
+  console.log("product",product)
+  console.log('color array', colorArray)
+
+  useEffect(()=>{
+    const fetchProduct = async() =>{
+      await fetch('http://localhost:3000/product/all')
+      .then(res => res.json())
+      .then(res => {
+        // let uniqueColor = [...new Set(product.map(item => item.color))]
+        // setColorArray(uniqueColor)
+        setProduct(res.product)
+      })
+      .catch(err => console.log(err.message))
+    }
+    fetchProduct()
+  },[])
   const handleChange = (e) =>{
-    // e.preventDefault()
+    e.preventDefault()
     setInput(e.target.value)
     console.log(e.target.value)
 
@@ -31,31 +47,29 @@ function App() {
   }
   
   const handleClick =async(e) =>{
-    // let arr = []
+    e.preventDefault()
     const color = e.target.value;
 
-
+    let updatedArray;
     
     if(colorArray.includes(color)){
-     let updatedArray = colorArray.filter((item) => item !== color)
-    setColorArray(updatedArray)
-    console.log(updatedArray);
+     updatedArray = colorArray.filter((item) => item !== color)
+    //  setColorArray(updatedArray)
+     console.log(updatedArray);
     }else{
-      colorArray.push(color)
+      // colorArray.push(color)
+      updatedArray = [...colorArray, color];
       
     }
-    // console.log(colorArray);
-  
-    // setColorArray(prevColorArray => [...prevColorArray, color]); 
-    // console.log(colorArray);
-  //  await setColorArray(prevColorArray => [...prevColorArray, color]); 
+   setColorArray(updatedArray)
+
     
-    await fetch(` http://localhost:3000/product/filter?colors=${colorArray.toString()}`)
+    await fetch(` http://localhost:3000/product/filter?colors=${updatedArray.toString()}`)
     .then(res => res.json())
     .then(res => {
      
       setProduct(res.product)
-      // console.log(res.product[0].name)
+
      return res.product
     })
    
@@ -64,21 +78,31 @@ function App() {
       ...checkedStatus,
       [color]: !checkedStatus[color],
     });
-    // e.preventDefault()
   }
 
   const listStyle = {
     cursor: "pointer"
   }
+  
+
   return (
     <>
+    <h3>SEARCH AND FILTER FUNCTIONALITY</h3>
     <div>
-      <label>Red</label>
+      {
+       colorArray.map(item => {
+        return <div>
+          <label>{item}</label>
+      <input style={listStyle} type='checkbox' checked={checkedStatus[item]} value={item}   onChange={handleClick} />
+          </div>
+       })
+      }
+      {/* <label>Red</label>
       <input style={listStyle} type='checkbox' checked={checkedStatus.red} value="red"   onChange={handleClick} />
       <label>White</label>
       <input style={listStyle} type='checkbox' value="white" checked={checkedStatus.white}  onChange={handleClick} />
       <label>Black</label>
-      <input style={listStyle} type='checkbox' value="black" checked={checkedStatus.black}  onChange={handleClick} />
+      <input style={listStyle} type='checkbox' value="black" checked={checkedStatus.black}  onChange={handleClick} /> */}
 
     </div>
         <form onSubmit={handleSubmit}>
