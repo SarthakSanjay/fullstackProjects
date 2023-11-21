@@ -10,27 +10,37 @@ function App() {
     white: false,
     black: false,
   });
-  const [colorArray , setColorArray] = useState([...new Set(product.map(item => item.color))])
-  console.log("product",product)
-  console.log('color array', colorArray)
+  const [colorArray , setColorArray] = useState([])
+  const [uniqueColor , setUniqueColor] = useState([])
+  // console.log("product",product)
+  // console.log('color array', colorArray)
 
   useEffect(()=>{
     const fetchProduct = async() =>{
       await fetch('http://localhost:3000/product/all')
       .then(res => res.json())
       .then(res => {
-        // let uniqueColor = [...new Set(product.map(item => item.color))]
-        // setColorArray(uniqueColor)
         setProduct(res.product)
       })
       .catch(err => console.log(err.message))
     }
     fetchProduct()
+
+    const fetchUniqueProduct = async() =>{
+      await fetch('http://localhost:3000/product/all')
+      .then(res => res.json())
+      .then(res => {
+        let productArray = [...new Set(res.product.map(item => item.color))]
+        console.log(productArray)
+        setUniqueColor(productArray)
+      })
+    }
+    fetchUniqueProduct()
   },[])
   const handleChange = (e) =>{
     e.preventDefault()
     setInput(e.target.value)
-    console.log(e.target.value)
+    // console.log(e.target.value)
 
   }
   const handleSubmit = async(e) =>{
@@ -43,7 +53,7 @@ function App() {
      return res.product
     })
 
-    console.log(input)
+    // console.log(input)
   }
   
   const handleClick =async(e) =>{
@@ -55,7 +65,7 @@ function App() {
     if(colorArray.includes(color)){
      updatedArray = colorArray.filter((item) => item !== color)
     //  setColorArray(updatedArray)
-     console.log(updatedArray);
+    //  console.log(updatedArray);
     }else{
       // colorArray.push(color)
       updatedArray = [...colorArray, color];
@@ -90,19 +100,13 @@ function App() {
     <h3>SEARCH AND FILTER FUNCTIONALITY</h3>
     <div>
       {
-       colorArray.map(item => {
-        return <div>
+       uniqueColor.map(item => {
+        return <div key={item._id}>
           <label>{item}</label>
       <input style={listStyle} type='checkbox' checked={checkedStatus[item]} value={item}   onChange={handleClick} />
           </div>
        })
       }
-      {/* <label>Red</label>
-      <input style={listStyle} type='checkbox' checked={checkedStatus.red} value="red"   onChange={handleClick} />
-      <label>White</label>
-      <input style={listStyle} type='checkbox' value="white" checked={checkedStatus.white}  onChange={handleClick} />
-      <label>Black</label>
-      <input style={listStyle} type='checkbox' value="black" checked={checkedStatus.black}  onChange={handleClick} /> */}
 
     </div>
         <form onSubmit={handleSubmit}>
