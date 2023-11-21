@@ -20,22 +20,16 @@ function App() {
       await fetch('http://localhost:3000/product/all')
       .then(res => res.json())
       .then(res => {
+        let productArray = [...new Set(res.product.map(item => item.color))]
+        console.log(productArray)
+        setUniqueColor(productArray)
         setProduct(res.product)
       })
       .catch(err => console.log(err.message))
     }
     fetchProduct()
 
-    const fetchUniqueProduct = async() =>{
-      await fetch('http://localhost:3000/product/all')
-      .then(res => res.json())
-      .then(res => {
-        let productArray = [...new Set(res.product.map(item => item.color))]
-        console.log(productArray)
-        setUniqueColor(productArray)
-      })
-    }
-    fetchUniqueProduct()
+  
   },[])
   const handleChange = (e) =>{
     e.preventDefault()
