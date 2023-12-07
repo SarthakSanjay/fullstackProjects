@@ -99,7 +99,7 @@ function App() {
           <label>{item}</label>
       <input style={listStyle} type='checkbox' checked={checkedStatus[item]} value={item}   onChange={handleClick} />
           </div>
-       })
+       }) 
       }
 
     </div>

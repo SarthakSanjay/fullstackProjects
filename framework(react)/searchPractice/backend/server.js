@@ -13,6 +13,9 @@ app.use(express.json())
 app.get('/',(req,res)=>{
     res.send("<h1>hello</h1>")
 })
+app.get('/test',(req,res)=>{
+res.send("this is test")
+})
 
 app.post('/product/new' , createProduct )
 app.get('/product/all',getAllproduct)
